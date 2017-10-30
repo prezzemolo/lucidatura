@@ -2,15 +2,20 @@
   "name": "riassumere",
   "version": "0.0.0",
   "description": "summarize website metadatas.",
-  "main": "built/index.js",
+  "main": "./built/index.js",
+  "types": "./built/index.d.ts",
   "repository": "https://github.com/prezzemolo/riassumere.git",
   "author": "prezzemolo <contact@prezzemolo.ga>",
   "license": "Apache-2.0",
-  "private": false,
   "scripts": {
-    "lint": "standard src/**/*.ts"
+    "lint": "standard ./src/**/*.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "axios": "^0.17.0"
   },
   "devDependencies": {
+    "@types/node": "^8.0.47",
     "eslint-plugin-typescript": "^0.8.0",
     "standard": "^10.0.3",
     "typescript": "^2.5.3",
