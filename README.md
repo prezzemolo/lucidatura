@@ -24,13 +24,13 @@ import riassumere from 'riassumere'
 import riassumere from 'riassumere'
 ```
 
-- Using CommonJS on node.js:
+- Using CommonJS on Node.js:
 
 ```javascript
 const riassumere = require('riasummere').default
 ```
 
-- Using ES Modules on node.js with expreimental-modules flag:
+- Using ES Modules on Node.js with expreimental-modules flag:
 
 ```javascript
 import riassumereModule from 'riassumere'
