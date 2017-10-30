@@ -45,4 +45,4 @@ riassumere('https://twitter.com/BarackObama')
 */
 ```
 
-of all!
+That's all!
