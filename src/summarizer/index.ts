@@ -1,13 +1,21 @@
 import providers from './providers'
 
-import { ISummarizedMetadata } from '../interfaces'
+import { ISummarizedMetadata, TSummarizeProvider } from '../interfaces'
 import { SummarizerNotFoundError } from '../errors'
 
-export default (url: string, lang: string = 'en'): Promise<ISummarizedMetadata> => {
+export const detectProvider = (url: string): TSummarizeProvider | null => {
   for (const [matcher, provider] of providers) {
     if (matcher.test(url))
-      return provider(url, lang)
+      return provider
   }
+  return null
+}
 
-  return Promise.reject(new SummarizerNotFoundError(url))
+export default (url: string, lang: string = 'en'): Promise<ISummarizedMetadata> => {
+  const provider = detectProvider(url)
+
+  if (!provider)
+    return Promise.reject(new SummarizerNotFoundError(url))
+
+  return provider(url, lang)
 }
