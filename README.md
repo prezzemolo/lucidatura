@@ -30,6 +30,13 @@ import riassumere from 'riassumere'
 const riassumere = require('riasummere').default
 ```
 
+- Using ES Modules on node.js with expreimental-modules flag:
+
+```javascript
+import riassumereModule from 'riassumere'
+const riassumere = riassumereModule.default
+```
+
 and then,
 ```javascript
 riassumere('https://twitter.com/BarackObama')
