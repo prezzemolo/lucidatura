@@ -1,10 +1,25 @@
 {
   "name": "riassumere",
   "version": "0.0.0",
-  "description": "a library to summarize websites with analizzatore & vendor APIs.",
+  "description": "summarize website metadatas.",
   "main": "built/index.js",
   "repository": "https://github.com/prezzemolo/riassumere.git",
   "author": "prezzemolo <contact@prezzemolo.ga>",
   "license": "Apache-2.0",
-  "private": false
+  "private": false,
+  "scripts": {
+    "lint": "standard src/**/*.ts"
+  },
+  "devDependencies": {
+    "eslint-plugin-typescript": "^0.8.0",
+    "standard": "^10.0.3",
+    "typescript": "^2.5.3",
+    "typescript-eslint-parser": "^8.0.1"
+  },
+  "standard": {
+    "parser": "typescript-eslint-parser",
+    "plugins": [
+      "typescript"
+    ]
+  }
 }
