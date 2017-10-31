@@ -1,27 +1,21 @@
 import axios from 'axios'
-import * as querystring from 'querystring'
+import * as qs from 'query-string'
 
-import { ISummarizedMetadata } from '../../interfaces'
-import { StatusCodeError } from '../../errors'
+import { ISummary } from '../../interfaces'
+import { commonAxiosErrorHandler } from './common'
 
-export default (url: string, lang: string, ref: string = 'refs/tags/0.4.5'): Promise<ISummarizedMetadata> =>
+export default (url: string, lang: string, ref: string = 'refs/tags/0.4.5'): Promise<ISummary> =>
   axios
-    .get(`https://analizzatore.prezzemolo.ga/?${querystring.stringify({ url, lang, ref })}`)
+    .get(`https://analizzatore.prezzemolo.ga/?${qs.stringify({ url, lang, ref })}`)
     .then(response => {
-      return response.data as ISummarizedMetadata
+      return response.data as ISummary
     })
-    .catch(reason => {
-      if (reason.response) {
-        if (typeof reason.response.data === 'string')
-          throw new StatusCodeError(reason.response.status, reason.response.data)
-  
-        throw new StatusCodeError(reason.response.status, `${
-          // cut a suffix '.'
-          reason.response.data.title.endsWith('.')
-            ? reason.response.data.title.slice(0, -1)
-            : reason.response.data.title
-        }, ${reason.response.data.detail.toLocaleLowerCase()}`)
-      }
-
-      throw reason
-    })
+    .catch(commonAxiosErrorHandler(data => {
+      if (typeof data !== 'object') return null
+      return `${
+        // cut a suffix '.'
+        data.title.endsWith('.')
+          ? data.title.slice(0, -1)
+          : data.title
+      }, ${data.detail.toLocaleLowerCase()}`
+    }))
