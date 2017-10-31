@@ -12,9 +12,10 @@ export default (url: string, lang: string, ref: string = 'refs/tags/0.4.5'): Pro
     })
     .catch(reason => {
       if (reason.response) {
-        if (typeof reason.response.data === 'string')
+        if (typeof reason.response.data === 'string') {
           throw new StatusCodeError(reason.response.status, reason.response.data)
-  
+        }
+
         throw new StatusCodeError(reason.response.status, `${
           // cut a suffix '.'
           reason.response.data.title.endsWith('.')

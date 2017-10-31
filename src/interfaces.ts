@@ -15,5 +15,5 @@ export interface IRiassumereOptionObject {
 }
 export type TRiassumereOption = string | IRiassumereOptionObject
 
-export type TSummarizeProvider = (url:string , lang?: string, ...opts: any[]) => Promise<ISummarizedMetadata>
+export type TSummarizeProvider = (url: string , lang: string, ...opts: any[]) => Promise<ISummarizedMetadata>
 export type TSummarizeProviders = Map<RegExp, TSummarizeProvider>
