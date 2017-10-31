@@ -53,3 +53,66 @@ riassumere('https://twitter.com/BarackObama')
 ```
 
 That's all!
+
+Signature
+---
+```typescript
+interface ISummary {
+  title: string,
+  canonical: string,
+  type: string,
+  lang?: string,
+  icon?: string,
+  image?: string,
+  description?: string,
+  site_name?: string
+}
+export default (url: string, lang?: string) => Promise<ISummary>
+```
+
+FMI, open [src/interfaces.ts](src/interfaces.ts)!
+
+Handling Errors
+---
+
+- `StatusCodeError`: When server respond with status code greater than 400
+```typescript
+import rissumere, { errors } from 'riassumere'
+
+riassumere('https://twitter.com/BarackObama')
+  .then(metadata => {
+    console.dir(metadata)
+  })
+  .catch(e => {
+    if (e intanceof errors.StatusCodeError) {
+      /*
+        error message from server.
+        if no error message present, message equals to 'unknown'.
+        see: src/summarizer/providers/common.ts
+      */ 
+      console.log(e.message)
+      // HTTP status message
+      console.log(e.code)
+    }
+  })
+}
+```
+
+- `SummarizerNotFoundError`: When unsupported URL given.
+```typescript
+import rissumere, { errors } from 'riassumere'
+
+riassumere('ftp://twitter.com/BarackObama')
+  .then(metadata => {
+    console.dir(metadata)
+  })
+  .catch(e => {
+    if (e intanceof errors.SummarizerNotFoundError) {
+      // unsupported URL
+      console.log(e.url)
+    }
+  })
+}
+```
+
+FMI, open [src/errors.ts](src/errors.ts)!
