@@ -101,8 +101,7 @@ riassumere('https://twitter.com/BarackObama')
     if (e intanceof errors.StatusCodeError) {
       /*
         error message from server.
-        if no error message present, message equals to 'unknown'.
-        see: src/summarizer/providers/common.ts
+        if no error message present, message equals to `e.code`.
       */ 
       console.log(e.message)
       // HTTP status message

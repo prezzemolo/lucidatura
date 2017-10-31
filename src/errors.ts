@@ -3,8 +3,8 @@ import * as statuses from 'statuses'
 export const StatusCodeError = class extends Error {
   code: string
 
-  constructor (code: number, ...rest: any[]) {
-    super(...rest)
+  constructor (code: number, msg: string | null = null, ...rest: any[]) {
+    super(msg === null ? statuses[code] : msg, ...rest)
     Object.defineProperty(this, 'name', { value: 'StatusCodeError' })
     const nameDescriptor = Object.getOwnPropertyDescriptor(this, 'name')
     Object.defineProperty(this, 'code', Object.assign(
