@@ -72,7 +72,10 @@ interface IRissumereOptionObject {
   lang?: string
 }
 type IRissumereOption = string | IRissumereOptionObject
-// only one argument given returns Promise<ISummary>, else returns Promise ISummary[]
+/*
+  if only one argument given returns Promise<ISummary>,
+  else returns Promise<ISummary[]>
+ */
 export default (...IRissumereOption[]) => Promise<ISummary | ISummary[]>
 ```
 
