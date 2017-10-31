@@ -1,8 +1,9 @@
 riassumere
 ===
 
-[![npm version](https://img.shields.io/travis/prezzemolo/riassumere/master.svg?style=flat-square)](https://www.npmjs.org/package/riassumere)
-[![build status](https://img.shields.io/travis/prezzemolo/riassumere.svg?style=flat-square)](https://travis-ci.org/prezzemolo/riassumere)
+[![npm version](https://img.shields.io/npm/v/riassumere.svg)](https://www.npmjs.org/package/riassumere)
+[![build status](https://img.shields.io/travis/prezzemolo/riassumere/master.svg)](https://travis-ci.org/prezzemolo/riassumere)
+[![github stars](https://img.shields.io/github/stars/prezzemolo/riassumere.svg?style=social&label=Stars)](https://github.com/prezzemolo/riassumere/stargazers)
 
 Promise based website metadatas summarizer for browser and node.js.
 
