@@ -1,6 +1,6 @@
 {
   "name": "riassumere",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Promise based website metadatas summarizer for browser and node.js.",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
