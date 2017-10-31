@@ -1,4 +1,4 @@
-export interface ISummarizedMetadata {
+export interface ISummary {
   title: string,
   canonical: string,
   type: string,
@@ -15,5 +15,5 @@ export interface IRiassumereOptionObject {
 }
 export type TRiassumereOption = string | IRiassumereOptionObject
 
-export type TSummarizeProvider = (url: string , lang: string, ...opts: any[]) => Promise<ISummarizedMetadata>
+export type TSummarizeProvider = (url: string , lang?: string, ...opts: any[]) => Promise<ISummary>
 export type TSummarizeProviders = Map<RegExp, TSummarizeProvider>
