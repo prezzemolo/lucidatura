@@ -1,6 +1,6 @@
 {
   "name": "riassumere",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "summarize website metadatas.",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
