@@ -1,7 +1,7 @@
 riassumere
 ===
 
-[![npm version](https://img.shields.io/npm/v/riassumere.svg?style=flat-square)](https://www.npmjs.org/package/riassumere)
+[![npm version](https://img.shields.io/travis/prezzemolo/riassumere/master.svg?style=flat-square)](https://www.npmjs.org/package/riassumere)
 [![build status](https://img.shields.io/travis/prezzemolo/riassumere.svg?style=flat-square)](https://travis-ci.org/prezzemolo/riassumere)
 
 Promise based website metadatas summarizer for browser and node.js.
