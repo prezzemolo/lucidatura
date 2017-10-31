@@ -1,3 +1,10 @@
+/*
+  GitHub Summarizer
+
+  why?
+      GitHub delivers 'robots.txt' that has the entry ban almost all,
+    so avoidance it with GitHub REST API (v3).
+ */
 import axios from 'axios'
 import * as URL from 'url-parse'
 import * as pathToRegExp from 'path-to-regexp'
