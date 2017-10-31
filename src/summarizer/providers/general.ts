@@ -1,12 +1,12 @@
 import axios from 'axios'
-import * as querystring from 'querystring'
+import * as qs from 'query-string'
 
 import { ISummarizedMetadata } from '../../interfaces'
 import { StatusCodeError } from '../../errors'
 
 export default (url: string, lang: string, ref: string = 'refs/tags/0.4.5'): Promise<ISummarizedMetadata> =>
   axios
-    .get(`https://analizzatore.prezzemolo.ga/?${querystring.stringify({ url, lang, ref })}`)
+    .get(`https://analizzatore.prezzemolo.ga/?${qs.stringify({ url, lang, ref })}`)
     .then(response => {
       return response.data as ISummarizedMetadata
     })
