@@ -24,8 +24,8 @@ const commonAxiosErrorHandler = commonAxiosErrorHandlerGenerator(data => {
 type TSubSummarizer = (...args: string[]) => Promise<ISummary>
 type TSubSummarizers = Map<RegExp, TSubSummarizer>
 
-const repository: TSubSummarizer = (user: string, repo: string): Promise<ISummary> => {
-  return axios.get(`${githubAPIBase}/repos/${user}/${repo}`)
+const repository: TSubSummarizer = (user: string, repo: string): Promise<ISummary> =>
+  axios.get(`${githubAPIBase}/repos/${user}/${repo}`)
     .then(response => {
       const {
         full_name: title,
@@ -43,10 +43,9 @@ const repository: TSubSummarizer = (user: string, repo: string): Promise<ISummar
       }
     })
     .catch(commonAxiosErrorHandler)
-}
 
-const tag: TSubSummarizer = (user: string, repo: string, tag: string) => {
-  return Promise.all([
+const tag: TSubSummarizer = (user: string, repo: string, tag: string) =>
+  Promise.all([
     repository(user, repo),
     // check existance of tag
     axios.head(`${githubAPIBase}/repos/${user}/${repo}/git/refs/tags/${tag}`)
@@ -57,10 +56,9 @@ const tag: TSubSummarizer = (user: string, repo: string, tag: string) => {
       })
     })
     .catch(commonAxiosErrorHandler)
-}
 
-const commit: TSubSummarizer = (user: string, repo: string, sha: string): Promise<ISummary> => {
-  return Promise.all([
+const commit: TSubSummarizer = (user: string, repo: string, sha: string): Promise<ISummary> =>
+  Promise.all([
     axios.get(`${githubAPIBase}/repos/${user}/${repo}/commits/${sha}`),
     repository(user, repo)
   ])
@@ -78,7 +76,6 @@ const commit: TSubSummarizer = (user: string, repo: string, sha: string): Promis
       }
     })
     .catch(commonAxiosErrorHandler)
-}
 
 const repositorySubcontents = [
   // top-level
@@ -136,8 +133,29 @@ const bt = (name: string): TSubSummarizer =>
       .catch(commonAxiosErrorHandler)
   }
 
+const user: TSubSummarizer = (user: string): Promise<ISummary> =>
+  axios.get(`${githubAPIBase}/users/${user}`)
+    .then(response => {
+      const {
+        login, name, public_repos,
+        html_url: canonical,
+        avatar_url: image
+      } = response.data
+      const description =
+        public_repos > 0
+          ? `${login} has ${public_repos} repositories available. Follow their code on GitHub.`
+          : `Follow ${login} on GitHub and watch them build beautiful projects.`
+      return {
+        canonical, image, description,
+        title: `${login} (${name})`,
+        type: 'profile'
+      }
+    })
+    .catch(commonAxiosErrorHandler)
+
 const summarizers: TSubSummarizers = new Map([
   [ pathToRegExp('/'), () => general('https://github.com/humans.txt', 'en') ],
+  [ pathToRegExp('/:user'), user ],
   [ pathToRegExp('/:user/:repository'), repository ],
   [ pathToRegExp('/:user/:repository/releases/tag/:tag'), tag ],
   [ pathToRegExp('/:user/:repository/commit/:sha'), commit ],
