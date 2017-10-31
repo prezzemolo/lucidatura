@@ -67,7 +67,12 @@ interface ISummary {
   description?: string,
   site_name?: string
 }
-export default (url: string, lang?: string) => Promise<ISummary>
+interface IRissumereOptionObject {
+  url: string,
+  lang?: string
+}
+type IRissumereOption = string | IRissumereOptionObject
+export default (...IRissumereOption[]) => Promise<ISummary | >
 ```
 
 FMI, open [src/interfaces.ts](src/interfaces.ts)!
