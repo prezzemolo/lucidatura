@@ -1,6 +1,6 @@
 {
   "name": "riassumere",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Promise based website metadatas summarizer for browser and node.js.",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
@@ -12,7 +12,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "yarn build && yarn lint && yarn ava",
-    "ava": "ava-ts ./tests/*.ts"
+    "ava": "ava-ts ./tests/*.ts",
+    "publish": "npm run build && npm publish"
   },
   "dependencies": {
     "axios": "^0.17.0",
