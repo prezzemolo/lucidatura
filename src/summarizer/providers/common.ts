@@ -9,7 +9,7 @@ export const commonAxiosErrorHandler = (messageGenerator?: (data: any) => string
         if (!message && typeof reason.response.data === 'string') message = reason.response.data
         return message || 'unknown'
       }
-    ))
+    )())
   }
 
   throw reason
