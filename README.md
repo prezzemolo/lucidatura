@@ -72,7 +72,8 @@ interface IRissumereOptionObject {
   lang?: string
 }
 type IRissumereOption = string | IRissumereOptionObject
-export default (...IRissumereOption[]) => Promise<ISummary | >
+// only one argument given returns Promise<ISummary>, else returns Promise ISummary[]
+export default (...IRissumereOption[]) => Promise<ISummary | ISummary[]>
 ```
 
 FMI, open [src/interfaces.ts](src/interfaces.ts)!
