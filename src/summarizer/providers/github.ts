@@ -24,8 +24,8 @@ const commonAxiosErrorHandler = commonAxiosErrorHandlerGenerator(data => {
 type TSubSummarizer = (...args: string[]) => Promise<ISummary>
 type TSubSummarizers = Map<RegExp, TSubSummarizer>
 
-const repository: TSubSummarizer = (user: string, repository: string): Promise<ISummary> => {
-  return axios.get(`${githubAPIBase}/repos/${user}/${repository}`)
+const repository: TSubSummarizer = (user: string, repo: string): Promise<ISummary> => {
+  return axios.get(`${githubAPIBase}/repos/${user}/${repo}`)
     .then(response => {
       const {
         full_name: title,
@@ -36,22 +36,22 @@ const repository: TSubSummarizer = (user: string, repository: string): Promise<I
       return {
         title, canonical, image,
         description:
-          description
-            ? `${title} - ${description}`
-            : `Contribute to ${title} development by creating an account on GitHub.`,
+        description
+          ? `${title} - ${description}`
+          : `Contribute to ${title} development by creating an account on GitHub.`,
         type: 'object'
       }
     })
     .catch(commonAxiosErrorHandler)
 }
 
-const tag: TSubSummarizer = (user: string, repositoryName: string, tag: string) => {
+const tag: TSubSummarizer = (user: string, repo: string, tag: string) => {
   return Promise.all([
-    repository(user, repositoryName),
+    repository(user, repo),
     // check existance of tag
-    axios.head(`${githubAPIBase}/repos/${user}/${repositoryName}/git/refs/tags/${tag}`)
+    axios.head(`${githubAPIBase}/repos/${user}/${repo}/git/refs/tags/${tag}`)
   ])
-    .then(([ repo ]) => {
+    .then(([repo]) => {
       return Object.assign(repo, {
         canonical: `${repo.canonical}/releases/tag/${tag}`
       })
@@ -59,10 +59,10 @@ const tag: TSubSummarizer = (user: string, repositoryName: string, tag: string) 
     .catch(commonAxiosErrorHandler)
 }
 
-const commit: TSubSummarizer = (user: string, repositoryName: string, sha: string): Promise<ISummary> => {
+const commit: TSubSummarizer = (user: string, repo: string, sha: string): Promise<ISummary> => {
   return Promise.all([
-    axios.get(`${githubAPIBase}/repos/${user}/${repositoryName}/commits/${sha}`),
-    repository(user, repositoryName)
+    axios.get(`${githubAPIBase}/repos/${user}/${repo}/commits/${sha}`),
+    repository(user, repo)
   ])
     .then(([commit, repo]) => {
       const {
@@ -98,13 +98,55 @@ const repositorySubcontantsWrapper: TSubSummarizer = (...args: string[]): Promis
       title: !name.includes('/') ? `${name.substr(0, 1).toUpperCase() + name.substr(1)} \u00b7 ${summary.title}` : summary.title,
       canonical: `${summary.canonical}/${name}`
     }))
+    .catch(commonAxiosErrorHandler)
 }
+
+// iap -> issue & pull request
+const iap: TSubSummarizer = (user: string, repo: string, iapno: string): Promise<ISummary> => {
+  return Promise.all([
+    repository(user, repo),
+    axios.get(`${githubAPIBase}/repos/${user}/${repo}/issues/${iapno}}`)
+  ])
+    .then(([repo, issue]) => {
+      const {
+        title,
+        html_url: canonical,
+        user: { avatar_url: image },
+        body
+      } = issue.data
+      return {
+        canonical, image,
+        description: body ? body.trim() : repo.description,
+        title: `${title} \u00b7 #${iapno} \u00b7 ${repo.title}`,
+        type: 'object'
+      }
+    })
+    .catch(commonAxiosErrorHandler)
+}
+
+const bt = (name: string): TSubSummarizer =>
+  (user: string, repo: string, branch: string, path: string): Promise<ISummary> => {
+    return Promise.all([
+      repository(user, repo),
+      axios.head(`${githubAPIBase}/repos/${user}/${repo}/contents/${path}`)
+    ])
+      .then(([repo]) => Object.assign(repo, {
+        canonical: `${repo.canonical}/${name}/${branch}/${path}`
+      }))
+      .catch(commonAxiosErrorHandler)
+  }
 
 const summarizers: TSubSummarizers = new Map([
   [ pathToRegExp('/'), () => general('https://github.com/humans.txt', 'en') ],
   [ pathToRegExp('/:user/:repository'), repository ],
   [ pathToRegExp('/:user/:repository/releases/tag/:tag'), tag ],
   [ pathToRegExp('/:user/:repository/commit/:sha'), commit ],
+  [ pathToRegExp('/:user/:repository/issues/:number'), iap ],
+  [ pathToRegExp('/:user/:repository/pull/:number'), iap ],
+  // dummy with repository
+  [ pathToRegExp('/:user/:repository/blob/:branch/(.*)'), bt('blob') ],
+  [ pathToRegExp('/:user/:repository/tree/:branch/(.*)'), bt('tree') ],
+  // fallbacks
   [ pathToRegExp('/:user/:repository/(.*)'), repositorySubcontantsWrapper ]
 ])
 
