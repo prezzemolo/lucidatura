@@ -13,7 +13,7 @@
     "watch": "tsc -w",
     "test": "yarn build && yarn lint && yarn ava",
     "ava": "ava-ts ./tests/*.ts",
-    "publish": "npm run build && npm publish"
+    "push": "yarn test && yarn publish"
   },
   "dependencies": {
     "axios": "^0.17.0",

@@ -147,7 +147,7 @@ const user: TSubSummarizer = (user: string): Promise<ISummary> =>
           : `Follow ${login} on GitHub and watch them build beautiful projects.`
       return {
         canonical, image, description,
-        title: `${login} (${name})`,
+        title: name ? `${login} (${name})` : login,
         type: 'profile'
       }
     })
