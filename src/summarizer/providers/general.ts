@@ -4,7 +4,7 @@ import * as qs from 'query-string'
 import { ISummary } from '../../interfaces'
 import { commonAxiosErrorHandler } from './common'
 
-export default (url: string, lang: string, ref: string = 'refs/tags/0.4.5'): Promise<ISummary> =>
+export default (url: string, lang: string, ref: string = 'refs/tags/0.4.6'): Promise<ISummary> =>
   axios
     .get(`https://analizzatore.prezzemolo.ga/?${qs.stringify({ url, lang, ref })}`)
     .then(response => {
