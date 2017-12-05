@@ -1,6 +1,8 @@
 riassumere
 ===
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/prezzemolo/riassumere.svg)](https://greenkeeper.io/)
+
 [![npm version](https://img.shields.io/npm/v/riassumere.svg)](https://www.npmjs.org/package/riassumere)
 [![build status](https://img.shields.io/travis/prezzemolo/riassumere/master.svg)](https://travis-ci.org/prezzemolo/riassumere)
 [![github stars](https://img.shields.io/github/stars/prezzemolo/riassumere.svg?style=social&label=Stars)](https://github.com/prezzemolo/riassumere/stargazers)
