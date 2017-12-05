@@ -44,10 +44,7 @@ const riassumere = riassumereModule.default
 
 and then,
 ```javascript
-riassumere('https://twitter.com/BarackObama')
-  .then(metadata => {
-    console.dir(metadata)
-  })
+riassumere('https://twitter.com/BarackObama').then(console.dir)
 /*
 { title: 'Barack Obama (@barakobama) | Twitter',
   canonical: 'https://twitter.com/barakobama',
@@ -94,9 +91,7 @@ Handling Errors
 import rissumere, { errors } from 'riassumere'
 
 riassumere('https://twitter.com/BarackObama')
-  .then(metadata => {
-    console.dir(metadata)
-  })
+  .then(console.dir)
   .catch(e => {
     if (e intanceof errors.StatusCodeError) {
       /*
@@ -116,9 +111,7 @@ riassumere('https://twitter.com/BarackObama')
 import rissumere, { errors } from 'riassumere'
 
 riassumere('ftp://twitter.com/BarackObama')
-  .then(metadata => {
-    console.dir(metadata)
-  })
+  .then(console.dir)
   .catch(e => {
     if (e intanceof errors.SummarizerNotFoundError) {
       // unsupported URL
