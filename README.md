@@ -88,7 +88,7 @@ Handling Errors
 
 - `StatusCodeError`: When server respond with status code greater than 400
 ```typescript
-import rissumere, { errors } from 'riassumere'
+import riassumere, { errors } from 'riassumere'
 
 riassumere('https://twitter.com/BarackObama')
   .then(console.dir)
@@ -108,7 +108,7 @@ riassumere('https://twitter.com/BarackObama')
 
 - `SummarizerNotFoundError`: When unsupported URL given.
 ```typescript
-import rissumere, { errors } from 'riassumere'
+import riassumere, { errors } from 'riassumere'
 
 riassumere('ftp://twitter.com/BarackObama')
   .then(console.dir)
