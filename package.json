@@ -5,15 +5,14 @@
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
   "repository": "https://github.com/prezzemolo/riassumere.git",
-  "author": "prezzemolo <contact@prezzemolo.ga>",
+  "author": "prezzemolo <owner@prezzemolo.org>",
   "license": "Apache-2.0",
   "scripts": {
     "lint": "tslint -p ./tslint.json",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "yarn build && yarn lint && yarn ava",
-    "ava": "ava-ts ./tests/*.ts",
-    "push": "yarn test && yarn publish"
+    "ava": "ava-ts ./tests/*.ts"
   },
   "dependencies": {
     "axios": "^0.17.0",

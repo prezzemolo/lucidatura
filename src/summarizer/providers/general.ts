@@ -6,7 +6,7 @@ import { commonAxiosErrorHandler } from './common'
 
 export default (url: string, lang: string, ref: string = 'refs/tags/0.4.6'): Promise<ISummary> =>
   axios
-    .get(`https://analizzatore.prezzemolo.ga/?${qs.stringify({ url, lang, ref })}`)
+    .get(`https://analizzatore.prezzemolo.org/?${qs.stringify({ url, lang, ref })}`)
     .then(response => {
       return response.data as ISummary
     })
