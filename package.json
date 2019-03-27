@@ -17,7 +17,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "path-to-regexp": "^2.1.0",
-    "query-string": "^6.1.0",
+    "query-string": "^6.4.2",
     "statuses": "^1.4.0",
     "url-parse": "^1.1.9"
   },
