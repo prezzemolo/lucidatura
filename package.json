@@ -22,7 +22,7 @@
     "url-parse": "^1.1.9"
   },
   "devDependencies": {
-    "@types/node": "^10.7.1",
+    "@types/node": "^11.13.0",
     "@types/path-to-regexp": "^1.7.0",
     "@types/query-string": "^6.1.0",
     "@types/statuses": "^1.3.0",
